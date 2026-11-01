@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Airstream – Airbnb Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#161616;--muted:#555;--line:#d9d5ce;--bg:#f4f2ee;--card:#fff;--accent:#7a2e2a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+header{position:sticky;top:0;z-index:10;background:var(--ink);color:#fff}
+.bar{max-width:1100px;margin:0 auto;padding:12px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+.brand{font-family:Archivo,sans-serif;font-weight:800;font-size:20px;letter-spacing:.02em;margin-right:auto;color:#fff;text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{color:#ddd;text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:500;font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+nav a[aria-current="page"]{background:#fff;color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:32px 18px 80px}
+section.view{display:none}
+section.view.active{display:block}
+.eyebrow{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:Archivo,sans-serif;font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 12px}
+h2{font-family:Archivo,sans-serif;font-size:24px;margin:0 0 10px}
+h3{font-family:Archivo,sans-serif;font-size:19px;margin:0 0 8px}
+.lede{color:var(--muted);max-width:680px;margin:0 0 28px}
+.card{background:var(--card);border-radius:14px;padding:22px;margin-bottom:20px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+ul.tight,ol.tight{margin:0;padding-left:20px}
+ul.tight li,ol.tight li{margin:4px 0}
+.tile{display:block;background:var(--card);border-radius:14px;padding:22px;text-decoration:none;color:var(--ink);border:1px solid transparent}
+.tile:hover{border-color:var(--ink)}
+.tile p{margin:0;color:var(--muted)}
+.swatches{display:flex;gap:8px;margin-bottom:14px}
+.swatches span{flex:1;height:64px;border-radius:8px;border:1px solid rgba(0,0,0,.08)}
+.keep{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.keep div{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:12px;padding:12px}
+.keep i{width:44px;height:44px;border-radius:8px;border:1px solid rgba(0,0,0,.1);flex:none}
+.note{font-size:14px;color:var(--muted)}
+svg{max-width:100%;height:auto;display:block}
+.wf{border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff;font-size:14px}
+.wf .blk{border-bottom:1px dashed var(--line);padding:14px 16px}
+.wf .blk:last-child{border-bottom:none}
+.wf .lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.wf .hero{background:var(--ink);color:#fff;padding:28px 16px}
+.wf .hero .lbl{color:#bbb}
+.wf .hero b{font-family:Archivo,sans-serif;font-size:22px;display:block;margin-bottom:10px}
+.pill{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:6px 14px;font-weight:600;font-size:13px}
+.pill.alt{background:#fff;color:var(--ink);border:1px solid var(--ink)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.bcard{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.bcard .ph{height:64px;border-radius:8px;background:#e9e6e0;margin-bottom:8px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.gal span{aspect-ratio:1;background:#e9e6e0;border-radius:6px}
+ul.check{padding-left:0}
+.check li{list-style:none;position:relative;padding-left:26px}
+.check li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;border:2px solid var(--accent);border-radius:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
+input,textarea{font:inherit;font-weight:400;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);width:100%}
+input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+textarea{min-height:84px;resize:vertical}
+fieldset{border:none;padding:0;margin:0}
+legend{font-size:14px;font-weight:600;margin-bottom:6px;padding:0}
+.opts{display:flex;flex-wrap:wrap;gap:4px 18px}
+.opts label{flex-direction:row;align-items:center;gap:8px;font-weight:400;min-height:40px}
+.opts input{width:18px;height:18px;padding:0}
+.item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.item-head strong{font-family:Archivo,sans-serif;font-size:17px}
+.insp .opts label{min-height:36px}
+.helpbtn{background:var(--accent);border-color:var(--accent);color:#fff;padding:10px 14px}
+dialog#help{border:none;border-radius:16px;padding:0;max-width:760px;width:calc(100% - 24px);max-height:calc(100vh - 32px);color:var(--ink)}
+dialog#help::backdrop{background:rgba(0,0,0,.55)}
+.help-head{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.help-head h2{margin:0}
+.help-body{padding:8px 22px 26px}
+.help-body h3{margin:22px 0 6px}
+.help-body p{margin:6px 0}
+.help-body code{background:#f1efea;border-radius:6px;padding:2px 6px;font-size:14px;word-break:break-all}
+.help-body .urls{list-style:none;padding:0;margin:8px 0}
+.help-body .urls li{padding:8px 0;border-bottom:1px solid var(--line)}
+.help-body .urls a{font-weight:600}
+.svc{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+button{font:inherit;font-weight:600;border-radius:10px;padding:12px 18px;min-height:44px;cursor:pointer;border:1px solid var(--ink)}
+.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.ghost{background:#fff;color:var(--ink)}
+.link{background:none;border:none;color:var(--accent);padding:6px 4px;text-decoration:underline}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.savebar{position:sticky;bottom:0;background:var(--bg);padding:14px 0;border-top:1px solid var(--line);z-index:5}
+.status{font-size:14px;color:var(--muted)}
+.status.err{color:#a3261f}
+.gate{max-width:420px}
+pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:14px;max-height:420px;overflow:auto}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.svc{grid-template-columns:1fr 1fr}.svc label:first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="brand" href="#home">AIRSTREAM · Airbnb Portal</a>
+    <nav aria-label="Sections">
+      <a href="#home">Overview</a>
+      <a href="#layouts">Layouts</a>
+      <a href="#guests">Guest setup</a>
+      <a href="#info">Airstream info</a>
+    </nav>
+    <button type="button" class="helpbtn" id="openHelp">How to use this portal</button>
+  </div>
+</header>
+
+<dialog id="help" aria-labelledby="help-title">
+  <div class="help-head"><h2 id="help-title">How to use this portal</h2><button type="button" class="ghost" id="closeHelp">Close</button></div>
+  <div class="help-body">
+    <p>Everything for turning the Airstream into an Airbnb, in one place. Works on a phone or a computer, no account needed.</p>
+    <h3>The four sections</h3>
+    <p>Use the menu at the top, or these direct links (you can bookmark or text them):</p>
+    <ul class="urls">
+      <li><a href="#home" data-url>Overview</a><br>What's already in the Airstream and the next steps. <code data-show="#home"></code></li>
+      <li><a href="#layouts" data-url>Layouts</a><br>Two floor plan options for guests, using what's already built. View only. <code data-show="#layouts"></code></li>
+      <li><a href="#guests" data-url>Guest setup</a><br>Style directions, what guests need, and an Airbnb listing checklist. View only. <code data-show="#guests"></code></li>
+      <li><a href="#info" data-url>Airstream info</a><br>The form to fill out: measurements, hookups, bathroom, guests, and listings you like. <code data-show="#info"></code></li>
+    </ul>
+    <h3>Filling out the form</h3>
+    <ol class="tight">
+      <li>Open <b>Airstream info</b> and enter the <b>access code</b> Brandon sent you. Your device remembers it.</li>
+      <li>Fill in what you know. Nothing is required.</li>
+      <li><b>Listings you like:</b> paste a link to any Airbnb or photo you like, tick what you like about it, and add a note. Tap <b>+ Add another</b> for more.</li>
+      <li>Tap <b>Save</b> at the bottom. Come back anytime to edit and save again.</li>
+    </ol>
+    <h3>Other buttons</h3>
+    <ul class="tight"><li><b>View as text</b> shows a summary you can <b>Copy</b> into a text or email.</li></ul>
+    <h3>Photos</h3>
+    <p>The form can't upload pictures. Text Brandon photos and a short video of the inside, the outside, and where it's parked.</p>
+    <h3>If something goes wrong</h3>
+    <ul class="tight"><li><b>Code didn't work:</b> check capitals and the dash, or ask Brandon again.</li><li><b>Didn't save:</b> check your connection and tap Save again.</li></ul>
+  </div>
+</dialog>
+
+<main>
+<section class="view" id="v-home" aria-labelledby="h-home">
+  <p class="eyebrow">Airstream</p>
+  <h1 id="h-home">Turning the Airstream into an Airbnb</h1>
+  <p class="lede">New here? Tap <b>How to use this portal</b> at the top first. The goal: a layout that sleeps guests comfortably and photographs well, using as much of the existing build as possible.</p>
+  <div class="cols3">
+    <a class="tile" href="#layouts"><h3>Layouts →</h3><p>Two floor plan options for guests.</p></a>
+    <a class="tile" href="#guests"><h3>Guest setup →</h3><p>Style, guest essentials and the listing checklist.</p></a>
+    <a class="tile" href="#info"><h3>Airstream info →</h3><p>Measurements, hookups, bathroom, and listings you like.</p></a>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <h2>Already built (keep it)</h2>
+    <div class="keep" style="margin:0">
+      <div><i style="background:#fff"></i>Gloss white walls + lighting</div>
+      <div><i style="background:#9A9893"></i>Gray oak plank floor</div>
+      <div><i style="background:#B07A45"></i>Oak counter + cabinets</div>
+      <div><i style="background:#161616"></i>Built-in bench, TV, AC, speakers</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Next steps</h2>
+    <ol class="tight">
+      <li>Fill in the <a href="#info">Airstream info</a> form, especially measurements and the bathroom plan.</li>
+      <li>Pick a layout (A or B) and a style direction.</li>
+      <li>Text Brandon photos and a short video of the inside, outside and where it's parked.</li>
+      <li>Check local short-term rental rules for where it will be parked.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="view" id="v-layouts" aria-labelledby="h-lay">
+  <p class="eyebrow">Layouts</p>
+  <h1 id="h-lay">Two ways to set it up for guests</h1>
+  <p class="lede">Top-down, not to scale until we have measurements. Both reuse the oak counter (as the kitchenette) and the bench (as a sofa or daybed).</p>
+  <div class="cols">
+    <div class="card">
+      <h2>A · Rear bedroom</h2>
+      <svg viewBox="0 0 600 300" role="img" aria-label="Layout A: queen bed across the rear; oak counter becomes a kitchenette with sink, cooktop and mini fridge; bench becomes a sofa; compact wet bath at the front.">
+        <rect x="20" y="50" width="560" height="200" rx="100" fill="#FAFAF8" stroke="#161616" stroke-width="3"/>
+        <rect x="160" y="243" width="56" height="12" fill="#7A2E2A"/>
+        <g font-family="Inter, sans-serif" font-size="11" fill="#555"><text x="20" y="30">FRONT</text><text x="580" y="30" text-anchor="end">REAR</text></g>
+        <rect x="130" y="53" width="230" height="38" fill="#C08A55"/>
+        <rect x="150" y="60" width="40" height="26" rx="6" fill="#161616"/>
+        <circle cx="225" cy="72" r="9" fill="none" stroke="#161616" stroke-width="2"/><circle cx="250" cy="72" r="9" fill="none" stroke="#161616" stroke-width="2"/>
+        <rect x="320" y="56" width="36" height="32" fill="#E3E0DA" stroke="#9A9893"/>
+        <rect x="250" y="209" width="170" height="38" rx="6" fill="#8A9A7B"/>
+        <rect x="448" y="78" width="112" height="144" rx="10" fill="#EFE6D2" stroke="#9A9893"/>
+        <rect x="532" y="90" width="20" height="54" rx="5" fill="#fff" stroke="#9A9893"/><rect x="532" y="156" width="20" height="54" rx="5" fill="#fff" stroke="#9A9893"/>
+        <rect x="40" y="96" width="78" height="108" rx="8" fill="#DDE3E6" stroke="#8C9399" stroke-width="2"/>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#161616">
+          <text x="245" y="112" text-anchor="middle">Kitchenette: sink · cooktop · fridge</text>
+          <text x="335" y="200" text-anchor="middle">Sofa / daybed</text>
+          <text x="504" y="240" text-anchor="middle">Queen bed</text>
+          <text x="79" y="154" text-anchor="middle">Wet</text><text x="79" y="169" text-anchor="middle">bath</text>
+          <text x="188" y="276" text-anchor="middle" fill="#7A2E2A" font-weight="600">Entry</text>
+        </g>
+      </svg>
+      <ul class="tight">
+        <li>Bedroom feels private at the back, away from the door</li>
+        <li>Existing rear TV and mirror wall becomes the headboard wall</li>
+        <li>Shampoo bowl swaps out for a kitchen sink on the same plumbing</li>
+        <li>Sleeps 2, or 3 with the daybed</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>B · Front bedroom, rear lounge</h2>
+      <svg viewBox="0 0 600 300" role="img" aria-label="Layout B: queen bed at the front; kitchenette on the oak counter; bench sofa facing a wall TV; rear end becomes a lounge and dining nook; wet bath near the rear.">
+        <rect x="20" y="50" width="560" height="200" rx="100" fill="#FAFAF8" stroke="#161616" stroke-width="3"/>
+        <rect x="160" y="243" width="56" height="12" fill="#7A2E2A"/>
+        <g font-family="Inter, sans-serif" font-size="11" fill="#555"><text x="20" y="30">FRONT</text><text x="580" y="30" text-anchor="end">REAR</text></g>
+        <rect x="130" y="53" width="230" height="38" fill="#C08A55"/>
+        <rect x="150" y="60" width="40" height="26" rx="6" fill="#161616"/>
+        <circle cx="225" cy="72" r="9" fill="none" stroke="#161616" stroke-width="2"/><circle cx="250" cy="72" r="9" fill="none" stroke="#161616" stroke-width="2"/>
+        <rect x="320" y="56" width="36" height="32" fill="#E3E0DA" stroke="#9A9893"/>
+        <rect x="250" y="209" width="170" height="38" rx="6" fill="#8A9A7B"/>
+        <rect x="40" y="78" width="112" height="144" rx="10" fill="#EFE6D2" stroke="#9A9893"/>
+        <rect x="48" y="90" width="20" height="54" rx="5" fill="#fff" stroke="#9A9893"/><rect x="48" y="156" width="20" height="54" rx="5" fill="#fff" stroke="#9A9893"/>
+        <circle cx="500" cy="150" r="30" fill="#E3E0DA" stroke="#9A9893"/>
+        <rect x="420" y="56" width="70" height="56" rx="6" fill="#DDE3E6" stroke="#8C9399" stroke-width="2"/>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#161616">
+          <text x="245" y="112" text-anchor="middle">Kitchenette</text>
+          <text x="335" y="200" text-anchor="middle">Sofa facing TV</text>
+          <text x="96" y="240" text-anchor="middle">Queen bed</text>
+          <text x="500" y="200" text-anchor="middle">Lounge / dining</text>
+          <text x="455" y="130" text-anchor="middle">Wet bath</text>
+          <text x="188" y="276" text-anchor="middle" fill="#7A2E2A" font-weight="600">Entry</text>
+        </g>
+      </svg>
+      <ul class="tight">
+        <li>Rear windows and TV wall become a bright lounge, the hero photo for the listing</li>
+        <li>Bed tucked in the front curve, cozy "sleeping nook" feel</li>
+        <li>More open floor when you walk in</li>
+        <li>Sleeps 2</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h2>The big question: bathroom</h2>
+    <p style="margin:0">Guests will expect one. Options: a compact <b>wet bath</b> inside (toilet + shower in one small room, needs water, a tank or sewer, and a water heater), a <b>composting toilet</b> plus an outdoor shower, or access to a <b>bathroom nearby</b> on the property. This choice decides the final layout, so it's in the form.</p>
+  </div>
+</section>
+
+<section class="view" id="v-guests" aria-labelledby="h-gst">
+  <p class="eyebrow">Guest setup</p>
+  <h1 id="h-gst">Style, comfort and the listing</h1>
+  <h2>Pick a style direction</h2>
+  <div class="cols3">
+    <div class="card"><div class="swatches"><span style="background:#A9AEB3"></span><span style="background:#161616"></span><span style="background:#fff"></span></div>
+      <h3>1 · Polished modern</h3><ul class="tight"><li>White bedding, black fixtures</li><li>Show off the aluminum outside</li><li>Clean, hotel-like</li></ul></div>
+    <div class="card"><div class="swatches"><span style="background:#8B5A2B"></span><span style="background:#8A9A7B"></span><span style="background:#D9CBB3"></span></div>
+      <h3>2 · Warm minimal</h3><ul class="tight"><li>Linen, oak, plants</li><li>Warm 2700–3000K light</li><li>Calm cabin feel</li></ul></div>
+    <div class="card"><div class="swatches"><span style="background:#C2703D"></span><span style="background:#EFE6D2"></span><span style="background:#3E5C76"></span></div>
+      <h3>3 · Retro road trip</h3><ul class="tight"><li>Vintage colors and patterns</li><li>Record player, camp mugs</li><li>Fun, very photogenic</li></ul></div>
+  </div>
+  <div class="cols">
+    <div class="card">
+      <h2>What guests need</h2>
+      <ul class="tight check">
+        <li>Real mattress (not foam pad), blackout shades</li>
+        <li>AC and a small heater (already has AC)</li>
+        <li>Wi-Fi, outlets + USB by the bed</li>
+        <li>Mini fridge, kettle or coffee maker, basic dishes</li>
+        <li>Hooks, a luggage spot, a full-length mirror</li>
+        <li>Outdoor seating, string lights, a mat at the door</li>
+        <li>Smoke + CO detector, fire extinguisher, first-aid kit</li>
+        <li>Smart lock or lockbox for self check-in</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Airbnb listing checklist</h2>
+      <ul class="tight check">
+        <li>Check short-term rental rules and permits for the parking spot</li>
+        <li>Rental insurance that covers guests</li>
+        <li>Bright daytime photos: outside first, then bed, kitchenette, bath, outdoor area</li>
+        <li>Title that sells the experience, e.g. "Restored Airstream with patio"</li>
+        <li>House rules, check-in guide, Wi-Fi card inside</li>
+        <li>Cleaning plan and fee between guests</li>
+        <li>Price check against nearby tiny homes and trailers</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-info" aria-labelledby="h-info">
+  <p class="eyebrow">Airstream info</p>
+  <h1 id="h-info">Tell us about the Airstream</h1>
+  <p class="lede">Fill in what you know and skip the rest. Tap <b>Save</b> anytime and come back to edit.</p>
+  <div class="card gate" id="gate" hidden>
+    <h2>Enter the access code</h2>
+    <p class="note" style="margin-top:0">Brandon sent you a short code.</p>
+    <form id="gateForm" class="actions">
+      <label style="flex:1;min-width:180px">Access code<input id="codeInput" autocomplete="off" autocapitalize="off"></label>
+      <button class="primary" type="submit" style="align-self:flex-end">Open</button>
+    </form>
+    <p class="status" id="gateMsg" role="status"></p>
+  </div>
+  <form id="f" novalidate hidden>
+    <div class="card">
+      <h2>1. The Airstream</h2>
+      <div class="grid">
+        <label>Model / year<input name="Model / year" placeholder="e.g. 1972 Overlander"></label>
+        <label>Length (outside)<input name="Length" placeholder="e.g. 27 ft"></label>
+        <label>Inside width<input name="Inside width" placeholder="e.g. 7 ft 6 in"></label>
+        <label>Inside height<input name="Inside height"></label>
+        <label class="full">Where it will be parked<input name="Parking location" placeholder="backyard, property, RV spot…"></label>
+        <fieldset class="full"><legend>Hookups available there</legend>
+          <div class="opts" data-group="Hookups">
+            <label><input type="checkbox" value="Power">Power</label>
+            <label><input type="checkbox" value="Water">Water</label>
+            <label><input type="checkbox" value="Sewer / dump">Sewer / dump</label>
+            <label><input type="checkbox" value="Wi-Fi">Wi-Fi</label>
+          </div></fieldset>
+      </div>
+    </div>
+    <div class="card">
+      <h2>2. Guests</h2>
+      <div class="grid">
+        <fieldset class="full"><legend>Bathroom plan</legend>
+          <div class="opts" data-group="Bathroom">
+            <label><input type="radio" name="g-bath" value="Wet bath inside">Wet bath inside</label>
+            <label><input type="radio" name="g-bath" value="Composting toilet + outdoor shower">Composting toilet + outdoor shower</label>
+            <label><input type="radio" name="g-bath" value="Bathroom nearby on the property">Bathroom nearby</label>
+            <label><input type="radio" name="g-bath" value="Not sure">Not sure</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>How many guests</legend>
+          <div class="opts" data-group="Guests">
+            <label><input type="radio" name="g-guests" value="2">2</label>
+            <label><input type="radio" name="g-guests" value="3">3</label>
+            <label><input type="radio" name="g-guests" value="4">4</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Bed</legend>
+          <div class="opts" data-group="Bed">
+            <label><input type="radio" name="g-bed" value="Queen">Queen</label>
+            <label><input type="radio" name="g-bed" value="Full">Full</label>
+            <label><input type="radio" name="g-bed" value="Two twins">Two twins</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Layout you like</legend>
+          <div class="opts" data-group="Layout pick">
+            <label><input type="radio" name="g-layout" value="A · Rear bedroom">A · Rear bedroom</label>
+            <label><input type="radio" name="g-layout" value="B · Front bedroom, rear lounge">B · Front bedroom, rear lounge</label>
+            <label><input type="radio" name="g-layout" value="Not sure yet">Not sure yet</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Style direction</legend>
+          <div class="opts" data-group="Style pick">
+            <label><input type="radio" name="g-style" value="Polished modern">Polished modern</label>
+            <label><input type="radio" name="g-style" value="Warm minimal">Warm minimal</label>
+            <label><input type="radio" name="g-style" value="Retro road trip">Retro road trip</label>
+            <label><input type="radio" name="g-style" value="Not sure yet">Not sure yet</label>
+          </div></fieldset>
+      </div>
+    </div>
+    <div class="card">
+      <h2>3. Plan</h2>
+      <div class="grid">
+        <label>Target launch date<input name="Launch date"></label>
+        <label>Rough budget left to finish<input name="Budget"></label>
+        <label>Nightly price you're hoping for<input name="Nightly price"></label>
+        <label>What's still unfinished<input name="Unfinished"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Listings &amp; photos you like</h2>
+      <p class="note" style="margin-top:0">Paste a link to any Airbnb, Pinterest pin or photo you like and say why.</p>
+      <div id="inspo"></div>
+      <button type="button" class="ghost" id="addInspo">+ Add another</button>
+    </div>
+    <div class="card">
+      <h2>Anything else</h2>
+      <label>Notes<textarea name="Notes"></textarea></label>
+    </div>
+    <div class="savebar"><div class="actions">
+      <button type="submit" class="primary">Save</button>
+      <button type="button" class="ghost" id="showText">View as text</button>
+      <span class="status" id="saveMsg" role="status" aria-live="polite"></span>
+    </div></div>
+    <div class="card" id="textCard" hidden style="margin-top:16px">
+      <h2>Summary</h2>
+      <div class="actions" style="margin-bottom:12px"><button type="button" class="ghost" id="copy">Copy</button><span class="status" id="copied"></span></div>
+      <pre id="text"></pre>
+    </div>
+  </form>
+</section>
+</main>
+
+<script>
+(function(){
+  const API = "/api/airstream", CODE_KEY = "airstreamCode";
+  const views = ["home","layouts","guests","info"];
+  const help = document.getElementById("help");
+  function showHelp(){ try { help.showModal(); } catch(e){ help.setAttribute("open",""); } }
+  function route(){
+    if (location.hash === "#help") { history.replaceState(null, "", "#home"); showHelp(); }
+    const h = (location.hash || "#home").slice(1);
+    const v = views.includes(h) ? h : "home";
+    views.forEach(n => document.getElementById("v-"+n).classList.toggle("active", n===v));
+    document.querySelectorAll("nav a").forEach(a => { if (a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+    window.scrollTo(0,0);
+    if (v==="info") openForm();
+  }
+  window.addEventListener("hashchange", route);
+  document.getElementById("openHelp").addEventListener("click", showHelp);
+  document.getElementById("closeHelp").addEventListener("click", () => help.close());
+  help.addEventListener("click", e => { if (e.target === help) help.close(); });
+  help.querySelectorAll("a[data-url]").forEach(a => a.addEventListener("click", () => help.close()));
+  help.querySelectorAll("[data-show]").forEach(c => { c.textContent = location.origin + location.pathname + c.dataset.show; });
+
+  const form = document.getElementById("f");
+  const inspoList = document.getElementById("inspo");
+  const likeOpts = ["Layout","Colors","Bedding / decor","Kitchen","Bathroom","Outdoor space","Overall vibe"];
+  function renum(){ [...inspoList.children].forEach((el,i)=>{ el.querySelector("strong").textContent = "Link " + (i+1); }); }
+  function addInspo(vals){
+    vals = vals || {};
+    const box = document.createElement("div"); box.className = "item insp";
+    const head = document.createElement("div"); head.className = "item-head";
+    const t = document.createElement("strong");
+    const rm = document.createElement("button"); rm.type="button"; rm.className="link"; rm.textContent="Remove";
+    rm.addEventListener("click", ()=>{ if (inspoList.children.length>1){ box.remove(); renum(); dirty(); } });
+    head.append(t, rm);
+    const grid = document.createElement("div"); grid.className = "grid";
+    const l1 = document.createElement("label"); l1.className = "full"; l1.append("Link");
+    const u = document.createElement("input"); u.type = "url"; u.dataset.key = "URL"; u.placeholder = "Paste a link, e.g. https://…"; u.value = vals.URL || "";
+    l1.appendChild(u);
+    const fs = document.createElement("fieldset"); fs.className = "full";
+    const lg = document.createElement("legend"); lg.textContent = "What do you like?";
+    const opts = document.createElement("div"); opts.className = "opts";
+    likeOpts.forEach(o => { const l = document.createElement("label"); const c = document.createElement("input"); c.type="checkbox"; c.value=o; c.dataset.like="1"; c.checked=(vals.Likes||[]).includes(o); l.append(c, o); opts.appendChild(l); });
+    fs.append(lg, opts);
+    const l2 = document.createElement("label"); l2.className = "full"; l2.append("Notes: why you like it");
+    const w = document.createElement("textarea"); w.dataset.key = "Why"; w.value = vals.Why || "";
+    l2.appendChild(w);
+    grid.append(l1, fs, l2); box.append(head, grid); inspoList.appendChild(box); renum();
+  }
+  document.getElementById("addInspo").addEventListener("click", ()=>{ addInspo(); dirty(); });
+
+  function collect(){
+    const fields = {}; form.querySelectorAll("[name]").forEach(el => { if (!el.name.startsWith("g-")) fields[el.name] = el.value.trim(); });
+    const groups = {}; form.querySelectorAll("[data-group]").forEach(g => { groups[g.dataset.group] = [...g.querySelectorAll("input:checked")].map(i=>i.value); });
+    const inspo = [...inspoList.children].map(b => ({ URL: b.querySelector('[data-key="URL"]').value.trim(), Likes: [...b.querySelectorAll('[data-like]:checked')].map(c=>c.value), Why: b.querySelector('[data-key="Why"]').value.trim() }));
+    return { fields, groups, inspo };
+  }
+  function fill(d){
+    d = d || {}; const f = d.fields || {}, g = d.groups || {};
+    form.querySelectorAll("[name]").forEach(el => { if (!el.name.startsWith("g-") && f[el.name] !== undefined) el.value = f[el.name]; });
+    form.querySelectorAll("[data-group]").forEach(box => { const sel = g[box.dataset.group] || []; box.querySelectorAll("input").forEach(i => { i.checked = sel.includes(i.value); }); });
+    inspoList.innerHTML = ""; ((d.inspo && d.inspo.length) ? d.inspo : [null, null]).forEach(i => addInspo(i));
+  }
+  function asText(d){
+    const L = [];
+    form.querySelectorAll("[name], [data-group]").forEach(el => {
+      if (el.dataset && el.dataset.group) { const v = (d.groups[el.dataset.group]||[]).join(", "); if (v) L.push(el.dataset.group + ": " + v); }
+      else if (!el.name.startsWith("g-") && d.fields[el.name]) L.push(el.name + ": " + d.fields[el.name]);
+    });
+    const ins = d.inspo.filter(i => i.URL || i.Why || i.Likes.length);
+    if (ins.length){ L.push("", "== LISTINGS / PHOTOS THEY LIKE =="); ins.forEach((i,n) => { L.push((n+1) + ". " + (i.URL || "(no link)")); if (i.Likes.length) L.push("   Likes: " + i.Likes.join(", ")); if (i.Why) L.push("   Notes: " + i.Why); }); }
+    return "== AIRSTREAM ==\n" + L.join("\n");
+  }
+
+  const msg = document.getElementById("saveMsg");
+  let code = ""; try { code = localStorage.getItem(CODE_KEY) || ""; } catch(e){}
+  let loaded = false, unsaved = false;
+  function dirty(){ unsaved = true; msg.className = "status"; msg.textContent = "Unsaved changes"; }
+  form.addEventListener("input", dirty);
+  window.addEventListener("beforeunload", e => { if (unsaved){ e.preventDefault(); e.returnValue = ""; } });
+  async function api(method, body){
+    const r = await fetch(API, { method, headers: { "Content-Type":"application/json", "X-Portal-Code": code }, body: body ? JSON.stringify(body) : undefined });
+    if (r.status === 401) { const err = new Error("code"); err.code = 401; throw err; }
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }
+  const gate = document.getElementById("gate");
+  async function openForm(){
+    if (loaded) return;
+    try {
+      const d = await api("GET"); fill(d); loaded = true; gate.hidden = true; form.hidden = false;
+      if (d.updatedAt) msg.textContent = "Last saved " + new Date(d.updatedAt).toLocaleString();
+    } catch(e){
+      if (e.code === 401){ gate.hidden = false; form.hidden = true; if (code) document.getElementById("gateMsg").textContent = "That code didn't work. Try again."; }
+      else { gate.hidden = true; form.hidden = false; fill({}); loaded = true; msg.className="status err"; msg.textContent = "Couldn't load saved info. Check your connection."; }
+    }
+  }
+  document.getElementById("gateForm").addEventListener("submit", e => { e.preventDefault(); code = document.getElementById("codeInput").value.trim(); try { localStorage.setItem(CODE_KEY, code); } catch(err){} openForm(); });
+  form.addEventListener("submit", async e => {
+    e.preventDefault(); msg.className = "status"; msg.textContent = "Saving…";
+    try { const r = await api("PUT", collect()); unsaved = false; msg.textContent = "Saved " + new Date(r.updatedAt).toLocaleTimeString() + ". You can come back and edit anytime."; }
+    catch(err){ msg.className = "status err"; msg.textContent = err.code === 401 ? "Access code didn't work. Reload and enter it again." : "Didn't save. Check your connection and try again."; }
+  });
+  document.getElementById("showText").addEventListener("click", () => { document.getElementById("text").textContent = asText(collect()); const c = document.getElementById("textCard"); c.hidden = false; c.scrollIntoView({behavior:"smooth"}); });
+  document.getElementById("copy").addEventListener("click", async () => { const s = document.getElementById("copied"); try { await navigator.clipboard.writeText(document.getElementById("text").textContent); s.textContent = "Copied."; } catch(e){ s.textContent = "Press and hold the text to copy it."; } });
+  route();
+})();
+</script>
+</body>
+</html>
