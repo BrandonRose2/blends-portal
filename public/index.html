@@ -72,6 +72,7 @@ legend{font-size:14px;font-weight:600;margin-bottom:6px;padding:0}
 .item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
 .item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .item-head strong{font-family:Archivo,sans-serif;font-size:17px}
+.insp .opts label{min-height:36px}
 .svc{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
 button{font:inherit;font-weight:600;border-radius:10px;padding:12px 18px;min-height:44px;cursor:pointer;border:1px solid var(--ink)}
 .primary{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -108,7 +109,7 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
   <div class="cols3">
     <a class="tile" href="#airstream"><h3>Airstream concepts →</h3><p>Two floor plan options, finish directions and the station wall.</p></a>
     <a class="tile" href="#website"><h3>Website plan →</h3><p>Pages, homepage layout, a booking button for each barber, and the Google/SEO plan.</p></a>
-    <a class="tile" href="#info"><h3>Shop info form →</h3><p>Barbers, contact info, services, hours. Saves here so you can edit later.</p></a>
+    <a class="tile" href="#info"><h3>Shop info form →</h3><p>Barbers, contact info, services, hours, and websites you like. Saves here so you can edit later.</p></a>
   </div>
   <div class="card" style="margin-top:20px">
     <h2>Next steps</h2>
@@ -116,6 +117,7 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
       <li>Fill in the <a href="#info">shop info form</a> (about 10 minutes, and you can save partway through).</li>
       <li>Send Airstream measurements (length and inside width) so the floor plans can be drawn to scale.</li>
       <li>Pick a layout (A or B) and a finish direction.</li>
+      <li>Paste links to websites you like in the form, with a note on why.</li>
       <li>Text Brandon your logo and photos: haircuts, each barber, the Airstream.</li>
       <li>Review the first draft of the website.</li>
     </ol>
@@ -363,7 +365,6 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
         <label>Tagline / slogan<input name="Tagline"></label>
         <label class="full">Your story: how it started, what makes you different<textarea name="About / story"></textarea></label>
         <label class="full">The vibe in a few words<input name="Vibe" placeholder="classic, chill, family-friendly…"></label>
-        <label class="full">Websites or shops you like the look of<textarea name="Sites they like"></textarea></label>
         <fieldset class="full"><legend>Airstream layout you like</legend>
           <div class="opts" data-group="Layout pick">
             <label><input type="radio" name="g-layout" value="A · Rear station">A · Rear station</label>
@@ -379,6 +380,13 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
           </div></fieldset>
         <label class="full">Airstream measurements (if you have them)<input name="Airstream measurements" placeholder="length, inside width, model/year"></label>
       </div>
+    </div>
+
+    <div class="card" id="inspoCard">
+      <h2>Websites you like</h2>
+      <p class="note" style="margin-top:0">Paste a link to any website you like (another barbershop, a brand, anything) and say what you like about it. This is the best way to make your site feel like you.</p>
+      <div id="inspo"></div>
+      <button type="button" class="ghost" id="addInspo">+ Add another website</button>
     </div>
 
     <div class="card">
@@ -503,6 +511,33 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
     ["Specialties","text","fades, beards, kids, designs…"],["Short bio","textarea","A sentence or two"]
   ];
   const sFields = [["Service","Haircut"],["Price","$40"],["Time","45 min"]];
+  const inspoList = document.getElementById("inspo");
+  const likeOpts = ["Colors","Layout","Photos","Fonts","Booking","Overall vibe"];
+  function renumInspo(){ [...inspoList.children].forEach((el,i)=>{ el.querySelector("strong").textContent = "Website " + (i+1); }); }
+  function addInspo(vals){
+    vals = vals || {};
+    const box = document.createElement("div"); box.className = "item insp";
+    const head = document.createElement("div"); head.className = "item-head";
+    const t = document.createElement("strong");
+    const rm = document.createElement("button"); rm.type="button"; rm.className="link"; rm.textContent="Remove";
+    rm.addEventListener("click", ()=>{ if (inspoList.children.length>1){ box.remove(); renumInspo(); dirty(); } });
+    head.append(t, rm);
+    const grid = document.createElement("div"); grid.className = "grid";
+    const l1 = document.createElement("label"); l1.className = "full"; l1.append("Website link");
+    const u = document.createElement("input"); u.type = "url"; u.dataset.key = "URL"; u.placeholder = "Paste a link, e.g. https://…"; u.value = vals.URL || "";
+    l1.appendChild(u);
+    const fs = document.createElement("fieldset"); fs.className = "full";
+    const lg = document.createElement("legend"); lg.textContent = "What do you like?";
+    const opts = document.createElement("div"); opts.className = "opts";
+    likeOpts.forEach(o => { const l = document.createElement("label"); const c = document.createElement("input"); c.type="checkbox"; c.value=o; c.dataset.like="1"; c.checked = (vals.Likes||[]).includes(o); l.append(c, o); opts.appendChild(l); });
+    fs.append(lg, opts);
+    const l2 = document.createElement("label"); l2.className = "full"; l2.append("Notes: why you like it, or what to copy");
+    const w = document.createElement("textarea"); w.dataset.key = "Why"; w.placeholder = "Love the dark colors and the big Book button at the top…"; w.value = vals.Why || "";
+    l2.appendChild(w);
+    grid.append(l1, fs, l2);
+    box.append(head, grid); inspoList.appendChild(box); renumInspo();
+  }
+  document.getElementById("addInspo").addEventListener("click", ()=>{ addInspo(); dirty(); });
 
   function renumber(){ [...barberList.children].forEach((el,i)=>{ el.querySelector("strong").textContent = "Barber " + (i+1); }); }
 
@@ -549,7 +584,8 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
     const groups = {};
     form.querySelectorAll("[data-group]").forEach(g => { groups[g.dataset.group] = [...g.querySelectorAll("input:checked")].map(i=>i.value); });
     const rows = (list, keys) => [...list.children].map(r => Object.fromEntries(keys.map(k => [k, r.querySelector('[data-key="'+k+'"]').value.trim()])));
-    return { fields, groups, barbers: rows(barberList, bFields.map(f=>f[0])), services: rows(svcList, sFields.map(f=>f[0])) };
+    return { fields, groups, barbers: rows(barberList, bFields.map(f=>f[0])), services: rows(svcList, sFields.map(f=>f[0])),
+      inspo: [...inspoList.children].map(b => ({ URL: b.querySelector('[data-key="URL"]').value.trim(), Likes: [...b.querySelectorAll('[data-like]:checked')].map(c=>c.value), Why: b.querySelector('[data-key="Why"]').value.trim() })) };
   }
 
   function fill(d){
@@ -561,7 +597,9 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
       const sel = g[box.dataset.group] || [];
       box.querySelectorAll("input").forEach(i => { i.checked = sel.includes(i.value); });
     });
-    barberList.innerHTML = ""; svcList.innerHTML = "";
+    barberList.innerHTML = ""; svcList.innerHTML = ""; inspoList.innerHTML = "";
+    const ins = (d.inspo && d.inspo.length) ? d.inspo : [];
+    (ins.length ? ins : [null, null]).forEach(i => addInspo(i));
     ((d.barbers && d.barbers.length) ? d.barbers : [null, null]).forEach(b => addBarber(b));
     ((d.services && d.services.length) ? d.services : [null, null, null]).forEach(s => addSvc(s));
   }
@@ -579,7 +617,9 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
     d.barbers.forEach(b => { if (!Object.values(b).some(Boolean)) return; c++; L.push("", "== BARBER " + c + " =="); Object.entries(b).forEach(([k,v]) => line(k, v)); });
     const svcs = d.services.filter(s => Object.values(s).some(Boolean));
     if (svcs.length){ L.push("", "== SERVICES =="); svcs.forEach(s => L.push("- " + Object.values(s).filter(Boolean).join(" | "))); }
-    sec("ABOUT", ["Year opened","Tagline","About / story","Vibe","Sites they like",["Layout pick"],["Finish pick"],"Airstream measurements"]);
+    const ins = (d.inspo||[]).filter(i => i.URL || i.Why || (i.Likes||[]).length);
+    if (ins.length){ L.push("", "== WEBSITES THEY LIKE =="); ins.forEach((i,n) => { L.push((n+1) + ". " + (i.URL || "(no link)")); if ((i.Likes||[]).length) L.push("   Likes: " + i.Likes.join(", ")); if (i.Why) L.push("   Notes: " + i.Why); }); }
+    sec("ABOUT", ["Year opened","Tagline","About / story","Vibe",["Layout pick"],["Finish pick"],"Airstream measurements"]);
     sec("VISITING", [["Walk-ins"],["Payment"],["Extras"],"Parking","Policies"]);
     sec("ONLINE", ["Shop Booksy","Instagram","TikTok","Facebook","Yelp","Current website",["Google Business Profile"],["Domain status"],"Domain"]);
     sec("LOGO & PHOTOS", [["Logo"],["Photos available"],"Brand colors"]);
