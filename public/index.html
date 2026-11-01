@@ -73,6 +73,18 @@ legend{font-size:14px;font-weight:600;margin-bottom:6px;padding:0}
 .item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .item-head strong{font-family:Archivo,sans-serif;font-size:17px}
 .insp .opts label{min-height:36px}
+.helpbtn{background:var(--accent);border-color:var(--accent);color:#fff;padding:10px 14px}
+dialog#help{border:none;border-radius:16px;padding:0;max-width:760px;width:calc(100% - 24px);max-height:calc(100vh - 32px);color:var(--ink)}
+dialog#help::backdrop{background:rgba(0,0,0,.55)}
+.help-head{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.help-head h2{margin:0}
+.help-body{padding:8px 22px 26px}
+.help-body h3{margin:22px 0 6px}
+.help-body p{margin:6px 0}
+.help-body code{background:#f1efea;border-radius:6px;padding:2px 6px;font-size:14px;word-break:break-all}
+.help-body .urls{list-style:none;padding:0;margin:8px 0}
+.help-body .urls li{padding:8px 0;border-bottom:1px solid var(--line)}
+.help-body .urls a{font-weight:600}
 .svc{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
 button{font:inherit;font-weight:600;border-radius:10px;padding:12px 18px;min-height:44px;cursor:pointer;border:1px solid var(--ink)}
 .primary{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -97,15 +109,64 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
       <a href="#website">Website plan</a>
       <a href="#info">Shop info</a>
     </nav>
+    <button type="button" class="helpbtn" id="openHelp">How to use this portal</button>
   </div>
 </header>
+
+<dialog id="help" aria-labelledby="help-title">
+  <div class="help-head">
+    <h2 id="help-title">How to use this portal</h2>
+    <button type="button" class="ghost" id="closeHelp">Close</button>
+  </div>
+  <div class="help-body">
+    <p>This portal has everything for the Airstream move and the new Blends Barbershop website in one place. It works on a phone or a computer. You don't need an account or an app.</p>
+
+    <h3>The four sections</h3>
+    <p>Use the menu at the top, or go straight to a section with these links. You can bookmark any of them or text them to someone.</p>
+    <ul class="urls">
+      <li><a href="#home" data-url>Overview</a><br>Quick summary of the project and the next steps. <code data-show="#home"></code></li>
+      <li><a href="#airstream" data-url>Airstream</a><br>Two floor plan options (A and B), finish and color directions, and the station wall layout. View only. <code data-show="#airstream"></code></li>
+      <li><a href="#website" data-url>Website plan</a><br>What the homepage will look like, the pages, how each barber's Book button works, and the plan for showing up on Google. View only. <code data-show="#website"></code></li>
+      <li><a href="#info" data-url>Shop info</a><br>The form to fill out. This is the only part where you type anything. <code data-show="#info"></code></li>
+    </ul>
+
+    <h3>Filling out the shop info form</h3>
+    <ol class="tight">
+      <li>Open <b>Shop info</b>. The first time, it asks for the <b>access code</b> Brandon sent you. Type it and tap <b>Open</b>. Your phone or computer remembers it after that.</li>
+      <li>Fill in what you know and skip anything you don't. Nothing is required.</li>
+      <li><b>Barbers:</b> one box per barber. Tap <b>+ Add another barber</b> for more, or <b>Remove</b> to delete one. The <b>Booking link</b> is that barber's personal Booksy page, and it's what their Book button on the website will open.</li>
+      <li><b>Services:</b> name, price and time for each service. Tap <b>+ Add a service</b> for more rows. You can skip this if you'd rather just link to Booksy.</li>
+      <li><b>Websites you like:</b> copy a link from your browser and paste it in, tick what you like about it, and write a quick note. Add as many as you want. This is the most helpful part for making the site feel like you.</li>
+      <li>Tap <b>Save</b> at the bottom. The save bar stays at the bottom of the screen while you scroll. You'll see "Saved" with the time.</li>
+    </ol>
+
+    <h3>Coming back to edit</h3>
+    <p>Everything you save stays here. Open the same link anytime, change anything, and tap <b>Save</b> again. Brandon sees your latest version. If you try to leave with unsaved changes, your browser warns you first.</p>
+
+    <h3>Other buttons</h3>
+    <ul class="tight">
+      <li><b>View as text</b> shows everything you entered as a clean summary. Tap <b>Copy</b> to paste it into a text or email.</li>
+      <li><b>How to use this portal</b> (top of the page) opens this guide again.</li>
+    </ul>
+
+    <h3>Photos and logo</h3>
+    <p>The form can't upload pictures. Text or email your logo, haircut photos, photos of each barber and photos of the Airstream to Brandon directly.</p>
+
+    <h3>If something goes wrong</h3>
+    <ul class="tight">
+      <li><b>"That code didn't work":</b> check for typos (capital letters and the dash count), or ask Brandon for the code again.</li>
+      <li><b>"Didn't save":</b> check your internet connection and tap Save again. Don't close the page until it says Saved.</li>
+      <li><b>Page looks old:</b> refresh the page.</li>
+    </ul>
+  </div>
+</dialog>
 
 <main>
 
 <section class="view" id="v-home" aria-labelledby="h-home">
   <p class="eyebrow">Blends Barbershop</p>
   <h1 id="h-home">The move into the Airstream, and the new website</h1>
-  <p class="lede">Everything for the project in one place. Look through the concepts, then fill in the shop info so the website can be built. You can come back and update it anytime.</p>
+  <p class="lede">New here? Tap <b>How to use this portal</b> at the top first. Everything for the project is in one place. Look through the concepts, then fill in the shop info so the website can be built. You can come back and update it anytime.</p>
   <div class="cols3">
     <a class="tile" href="#airstream"><h3>Airstream concepts →</h3><p>Two floor plan options, finish directions and the station wall.</p></a>
     <a class="tile" href="#website"><h3>Website plan →</h3><p>Pages, homepage layout, a booking button for each barber, and the Google/SEO plan.</p></a>
@@ -491,6 +552,7 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
 (function(){
   const views = ["home","airstream","website","info"];
   function route(){
+    if (location.hash === "#help") { history.replaceState(null, "", "#home"); document.getElementById("openHelp").click(); }
     const h = (location.hash || "#home").slice(1);
     const v = views.includes(h) ? h : "home";
     views.forEach(n => document.getElementById("v-"+n).classList.toggle("active", n===v));
@@ -684,6 +746,14 @@ pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-
     try { await navigator.clipboard.writeText(document.getElementById("text").textContent); s.textContent = "Copied."; }
     catch(e){ s.textContent = "Press and hold the text to copy it."; }
   });
+
+  const help = document.getElementById("help");
+  function showHelp(){ try { help.showModal(); } catch(e){ help.setAttribute("open",""); } }
+  document.getElementById("openHelp").addEventListener("click", showHelp);
+  document.getElementById("closeHelp").addEventListener("click", () => help.close());
+  help.addEventListener("click", e => { if (e.target === help) help.close(); });
+  help.querySelectorAll("a[data-url]").forEach(a => a.addEventListener("click", () => help.close()));
+  help.querySelectorAll("[data-show]").forEach(c => { c.textContent = location.origin + "/" + c.dataset.show; });
 
   route();
 })();
