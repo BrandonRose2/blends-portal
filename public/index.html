@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Blends Barbershop – Project Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#161616;--muted:#555;--line:#d9d5ce;--bg:#f4f2ee;--card:#fff;--accent:#7a2e2a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:var(--accent)}
+header{position:sticky;top:0;z-index:10;background:var(--ink);color:#fff}
+.bar{max-width:1100px;margin:0 auto;padding:12px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+.brand{font-family:Archivo,sans-serif;font-weight:800;font-size:20px;letter-spacing:.02em;margin-right:auto;color:#fff;text-decoration:none}
+nav{display:flex;flex-wrap:wrap;gap:4px}
+nav a{color:#ddd;text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:500;font-size:15px;min-height:44px;display:inline-flex;align-items:center}
+nav a[aria-current="page"]{background:#fff;color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:32px 18px 80px}
+section.view{display:none}
+section.view.active{display:block}
+.eyebrow{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:Archivo,sans-serif;font-weight:800;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 12px}
+h2{font-family:Archivo,sans-serif;font-size:24px;margin:0 0 10px}
+h3{font-family:Archivo,sans-serif;font-size:19px;margin:0 0 8px}
+.lede{color:var(--muted);max-width:680px;margin:0 0 28px}
+.card{background:var(--card);border-radius:14px;padding:22px;margin-bottom:20px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+ul.tight,ol.tight{margin:0;padding-left:20px}
+ul.tight li,ol.tight li{margin:4px 0}
+.tile{display:block;background:var(--card);border-radius:14px;padding:22px;text-decoration:none;color:var(--ink);border:1px solid transparent}
+.tile:hover{border-color:var(--ink)}
+.tile p{margin:0;color:var(--muted)}
+.swatches{display:flex;gap:8px;margin-bottom:14px}
+.swatches span{flex:1;height:64px;border-radius:8px;border:1px solid rgba(0,0,0,.08)}
+.keep{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px}
+.keep div{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:12px;padding:12px}
+.keep i{width:44px;height:44px;border-radius:8px;border:1px solid rgba(0,0,0,.1);flex:none}
+.note{font-size:14px;color:var(--muted)}
+svg{max-width:100%;height:auto;display:block}
+.wf{border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff;font-size:14px}
+.wf .blk{border-bottom:1px dashed var(--line);padding:14px 16px}
+.wf .blk:last-child{border-bottom:none}
+.wf .lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+.wf .hero{background:var(--ink);color:#fff;padding:28px 16px}
+.wf .hero .lbl{color:#bbb}
+.wf .hero b{font-family:Archivo,sans-serif;font-size:22px;display:block;margin-bottom:10px}
+.pill{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:6px 14px;font-weight:600;font-size:13px}
+.pill.alt{background:#fff;color:var(--ink);border:1px solid var(--ink)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.bcard{border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.bcard .ph{height:64px;border-radius:8px;background:#e9e6e0;margin-bottom:8px}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.gal span{aspect-ratio:1;background:#e9e6e0;border-radius:6px}
+ul.check{padding-left:0}
+.check li{list-style:none;position:relative;padding-left:26px}
+.check li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;border:2px solid var(--accent);border-radius:3px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.full{grid-column:1/-1}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
+input,textarea{font:inherit;font-weight:400;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);width:100%}
+input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+textarea{min-height:84px;resize:vertical}
+fieldset{border:none;padding:0;margin:0}
+legend{font-size:14px;font-weight:600;margin-bottom:6px;padding:0}
+.opts{display:flex;flex-wrap:wrap;gap:4px 18px}
+.opts label{flex-direction:row;align-items:center;gap:8px;font-weight:400;min-height:40px}
+.opts input{width:18px;height:18px;padding:0}
+.item{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.item-head strong{font-family:Archivo,sans-serif;font-size:17px}
+.svc{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+button{font:inherit;font-weight:600;border-radius:10px;padding:12px 18px;min-height:44px;cursor:pointer;border:1px solid var(--ink)}
+.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.ghost{background:#fff;color:var(--ink)}
+.link{background:none;border:none;color:var(--accent);padding:6px 4px;text-decoration:underline}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.savebar{position:sticky;bottom:0;background:var(--bg);padding:14px 0;border-top:1px solid var(--line);z-index:5}
+.status{font-size:14px;color:var(--muted)}
+.status.err{color:#a3261f}
+.gate{max-width:420px}
+pre{white-space:pre-wrap;background:#faf9f6;border:1px solid var(--line);border-radius:10px;padding:14px;font-size:14px;max-height:420px;overflow:auto}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.svc{grid-template-columns:1fr 1fr}.svc label:first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <a class="brand" href="#home">BLENDS · Project Portal</a>
+    <nav aria-label="Sections">
+      <a href="#home">Overview</a>
+      <a href="#airstream">Airstream</a>
+      <a href="#website">Website plan</a>
+      <a href="#info">Shop info</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="view" id="v-home" aria-labelledby="h-home">
+  <p class="eyebrow">Blends Barbershop</p>
+  <h1 id="h-home">The move into the Airstream, and the new website</h1>
+  <p class="lede">Everything for the project in one place. Look through the concepts, then fill in the shop info so the website can be built. You can come back and update it anytime.</p>
+  <div class="cols3">
+    <a class="tile" href="#airstream"><h3>Airstream concepts →</h3><p>Two floor plan options, finish directions and the station wall.</p></a>
+    <a class="tile" href="#website"><h3>Website plan →</h3><p>Pages, homepage layout, a booking button for each barber, and the Google/SEO plan.</p></a>
+    <a class="tile" href="#info"><h3>Shop info form →</h3><p>Barbers, contact info, services, hours. Saves here so you can edit later.</p></a>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <h2>Next steps</h2>
+    <ol class="tight">
+      <li>Fill in the <a href="#info">shop info form</a> (about 10 minutes, and you can save partway through).</li>
+      <li>Send Airstream measurements (length and inside width) so the floor plans can be drawn to scale.</li>
+      <li>Pick a layout (A or B) and a finish direction.</li>
+      <li>Text Brandon your logo and photos: haircuts, each barber, the Airstream.</li>
+      <li>Review the first draft of the website.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="view" id="v-airstream" aria-labelledby="h-air">
+  <p class="eyebrow">Airstream studio</p>
+  <h1 id="h-air">Concepts for the barber studio</h1>
+  <p class="lede">Built around what's already in the trailer: the oak counter with the shampoo bowl, the built-in bench, and the rear vanity with the mirror and TV. Top-down plans, not to scale until we have measurements.</p>
+
+  <div class="cols">
+    <div class="card">
+      <h2>A · Rear station</h2>
+      <svg viewBox="0 0 600 300" role="img" aria-label="Plan A: barber chair at the rear vanity facing the mirror; bench by the door for waiting; oak counter with shampoo bowl on the opposite wall; retail and coffee at the front.">
+        <rect x="20" y="50" width="560" height="200" rx="100" fill="#FAFAF8" stroke="#161616" stroke-width="3"/>
+        <rect x="130" y="53" width="230" height="38" fill="#C08A55"/>
+        <rect x="150" y="60" width="46" height="26" rx="8" fill="#161616"/>
+        <rect x="250" y="209" width="200" height="38" fill="#E3E0DA" stroke="#9A9893"/>
+        <rect x="160" y="243" width="56" height="12" fill="#7A2E2A"/>
+        <rect x="520" y="108" width="36" height="84" rx="6" fill="#E3E0DA" stroke="#9A9893"/>
+        <line x1="566" y1="112" x2="566" y2="188" stroke="#8C9399" stroke-width="5"/>
+        <circle cx="470" cy="150" r="52" fill="none" stroke="#7A2E2A" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <rect x="444" y="134" width="9" height="32" rx="3" fill="#7A2E2A"/>
+        <circle cx="472" cy="150" r="18" fill="#7A2E2A"/>
+        <rect x="48" y="112" width="26" height="76" rx="4" fill="#161616"/>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#161616">
+          <text x="245" y="112" text-anchor="middle">Oak counter + shampoo bowl</text>
+          <text x="350" y="200" text-anchor="middle">Bench = waiting</text>
+          <text x="470" y="226" text-anchor="middle">Chair faces mirror</text>
+          <text x="88" y="214">Retail + coffee</text>
+          <text x="188" y="276" text-anchor="middle" fill="#7A2E2A" font-weight="600">Entry</text>
+          <text x="20" y="30" font-size="11" fill="#555">FRONT</text>
+          <text x="580" y="30" font-size="11" fill="#555" text-anchor="end">REAR</text>
+        </g>
+      </svg>
+      <ul class="tight">
+        <li>Uses the existing mirror, TV and vanity as the station</li>
+        <li>Private-suite feel: the client walks past everything to the chair</li>
+        <li>Washes are a short walk to the bowl</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>B · Center chair</h2>
+      <svg viewBox="0 0 600 300" role="img" aria-label="Plan B: barber chair in the middle facing a new mirror over the oak counter beside the shampoo bowl; bench for waiting; rear end becomes a brand and photo wall.">
+        <rect x="20" y="50" width="560" height="200" rx="100" fill="#FAFAF8" stroke="#161616" stroke-width="3"/>
+        <rect x="130" y="53" width="230" height="38" fill="#C08A55"/>
+        <rect x="150" y="60" width="46" height="26" rx="8" fill="#161616"/>
+        <line x1="226" y1="56" x2="356" y2="56" stroke="#8C9399" stroke-width="5"/>
+        <rect x="250" y="209" width="200" height="38" fill="#E3E0DA" stroke="#9A9893"/>
+        <rect x="160" y="243" width="56" height="12" fill="#7A2E2A"/>
+        <rect x="520" y="108" width="36" height="84" rx="6" fill="#E3E0DA" stroke="#9A9893"/>
+        <circle cx="291" cy="138" r="52" fill="none" stroke="#7A2E2A" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <rect x="275" y="160" width="32" height="9" rx="3" fill="#7A2E2A"/>
+        <circle cx="291" cy="136" r="18" fill="#7A2E2A"/>
+        <rect x="48" y="112" width="26" height="76" rx="4" fill="#161616"/>
+        <g font-family="Inter, sans-serif" font-size="12" fill="#161616">
+          <text x="291" y="104" text-anchor="middle">New mirror over counter</text>
+          <text x="350" y="200" text-anchor="middle">Bench = waiting</text>
+          <text x="510" y="226" text-anchor="middle">Brand + photo wall</text>
+          <text x="88" y="214">Retail + coffee</text>
+          <text x="188" y="276" text-anchor="middle" fill="#7A2E2A" font-weight="600">Entry</text>
+          <text x="20" y="30" font-size="11" fill="#555">FRONT</text>
+          <text x="580" y="30" font-size="11" fill="#555" text-anchor="end">REAR</text>
+        </g>
+      </svg>
+      <ul class="tight">
+        <li>Chair sits right beside the shampoo bowl, so washes are quick</li>
+        <li>Tools on the oak counter within arm's reach</li>
+        <li>Rear becomes a neon sign and product wall, a backdrop for cut photos</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:12px">Finishes already in the trailer</h2>
+  <div class="keep">
+    <div><i style="background:#fff"></i>Gloss white walls</div>
+    <div><i style="background:#9A9893"></i>Gray oak plank floor</div>
+    <div><i style="background:#B07A45"></i>Butcher-block oak</div>
+    <div><i style="background:#A9AEB3"></i>Aluminum shell</div>
+  </div>
+
+  <h2>Pick a direction</h2>
+  <div class="cols3">
+    <div class="card"><div class="swatches"><span style="background:#161616"></span><span style="background:#A9AEB3"></span><span style="background:#fff"></span></div>
+      <h3>1 · Aluminum modern</h3><ul class="tight"><li>Black leather chair, chrome base</li><li>Matte black hardware</li><li>Cool-neutral 4000K light</li><li>Polished exterior + vinyl logo</li></ul></div>
+    <div class="card"><div class="swatches"><span style="background:#7A2E2A"></span><span style="background:#EFE6D2"></span><span style="background:#161616"></span></div>
+      <h3>2 · Classic Americana</h3><ul class="tight"><li>Oxblood chair, barber pole outside</li><li>Checker mat under the chair</li><li>Warm 2700K light, brass accents</li><li>Hand-lettered window sign</li></ul></div>
+    <div class="card"><div class="swatches"><span style="background:#8B5A2B"></span><span style="background:#8A9A7B"></span><span style="background:#D9CBB3"></span></div>
+      <h3>3 · Warm minimal</h3><ul class="tight"><li>Cognac leather chair</li><li>Plants + linen shades</li><li>3000K light, oak everywhere</li><li>Calm, spa-like suite</li></ul></div>
+  </div>
+
+  <div class="card">
+    <h2>Station wall (Layout A)</h2>
+    <div class="cols" style="align-items:center">
+      <svg viewBox="0 0 640 640" role="img" aria-label="Rear station wall: TV, backlit mirror, window with frosted film, counter with outlet strip, drawers, tool rail and speakers, numbered 1 to 7.">
+        <path d="M40 620 L40 220 Q40 40 320 40 Q600 40 600 220 L600 620 Z" fill="#FFFFFF" stroke="#161616" stroke-width="3"/>
+        <rect x="270" y="80" width="100" height="60" rx="4" fill="#161616"/>
+        <rect x="110" y="168" width="420" height="96" rx="6" fill="#F6E7C8"/>
+        <rect x="120" y="176" width="400" height="80" rx="4" fill="#E9EEF1" stroke="#8C9399" stroke-width="3"/>
+        <rect x="170" y="290" width="300" height="130" rx="6" fill="#DDE3E6" stroke="#8C9399" stroke-width="2"/>
+        <rect x="80" y="440" width="480" height="18" fill="#B07A45"/>
+        <rect x="150" y="447" width="140" height="6" rx="3" fill="#161616"/>
+        <rect x="90" y="460" width="460" height="160" fill="#F1EFEA" stroke="#9A9893"/>
+        <line x1="320" y1="460" x2="320" y2="620" stroke="#9A9893"/>
+        <rect x="190" y="500" width="40" height="6" rx="3" fill="#161616"/>
+        <rect x="410" y="500" width="40" height="6" rx="3" fill="#161616"/>
+        <circle cx="72" cy="300" r="18" fill="#161616"/>
+        <circle cx="568" cy="300" r="18" fill="#161616"/>
+        <rect x="560" y="360" width="10" height="70" rx="3" fill="#7A2E2A"/>
+        <g font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#fff" text-anchor="middle">
+          <circle cx="390" cy="110" r="14" fill="#7A2E2A"/><text x="390" y="115">1</text>
+          <circle cx="545" cy="216" r="14" fill="#7A2E2A"/><text x="545" y="221">2</text>
+          <circle cx="490" cy="355" r="14" fill="#7A2E2A"/><text x="490" y="360">3</text>
+          <circle cx="310" cy="450" r="14" fill="#7A2E2A"/><text x="310" y="455">4</text>
+          <circle cx="535" cy="395" r="14" fill="#7A2E2A"/><text x="535" y="400">5</text>
+          <circle cx="205" cy="560" r="14" fill="#7A2E2A"/><text x="205" y="565">6</text>
+          <circle cx="72" cy="340" r="14" fill="#7A2E2A"/><text x="72" y="345">7</text>
+        </g>
+      </svg>
+      <ol class="tight">
+        <li><b>TV</b>: loop the booking QR code, socials and cut photos</li>
+        <li><b>Backlit mirror</b>: LED strip behind it, 3000–3500K, high-CRI so fades look true</li>
+        <li><b>Window</b>: frosted film for privacy, still lets light in</li>
+        <li><b>Outlet strip</b> at counter height for clippers + charging dock</li>
+        <li><b>Tool rail</b> with magnetic holsters on the side wall</li>
+        <li><b>Drawers</b>: sterilizer jar, capes, towels, backstock</li>
+        <li><b>Speakers</b>: already installed</li>
+      </ol>
+    </div>
+  </div>
+  <p class="note">Before opening, check California Board of Barbering &amp; Cosmetology rules for mobile or trailer shops, and local zoning, power and water hookups.</p>
+</section>
+
+<section class="view" id="v-website" aria-labelledby="h-web">
+  <p class="eyebrow">Website</p>
+  <h1 id="h-web">Website plan</h1>
+  <p class="lede">Fast and mobile-first, built to show up when people nearby search "barber near me". Every barber gets their own Book button that opens their Booksy page.</p>
+  <div class="cols">
+    <div class="card">
+      <h2>Homepage layout</h2>
+      <div class="wf" role="img" aria-label="Homepage wireframe: header, hero, barbers with Book buttons, services, gallery, Airstream story, reviews, visit info">
+        <div class="blk"><div class="lbl">Header</div>Logo · Barbers · Services · Location · <span class="pill">Book</span></div>
+        <div class="blk hero"><div class="lbl">Hero</div><b>Blends Barbershop, Los Angeles</b>Short tagline · photo of the Airstream<br><br><span class="pill">Book now</span> <span class="pill alt">Call</span></div>
+        <div class="blk"><div class="lbl">Our barbers</div>
+          <div class="bgrid">
+            <div class="bcard"><div class="ph"></div>Barber 1<br><span class="pill">Book</span></div>
+            <div class="bcard"><div class="ph"></div>Barber 2<br><span class="pill">Book</span></div>
+            <div class="bcard"><div class="ph"></div>Barber 3<br><span class="pill">Book</span></div>
+          </div></div>
+        <div class="blk"><div class="lbl">Services &amp; prices</div>Haircut · Fade · Beard · Kids · Line-up</div>
+        <div class="blk"><div class="lbl">Gallery</div><div class="gal"><span></span><span></span><span></span><span></span></div></div>
+        <div class="blk"><div class="lbl">The Airstream</div>The story + inside photos</div>
+        <div class="blk"><div class="lbl">Reviews</div>Google / Booksy reviews</div>
+        <div class="blk"><div class="lbl">Visit</div>Address · map · hours · parking · phone</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h2>Pages</h2>
+        <ul class="tight">
+          <li><b>Home</b>: everything at left, one scroll</li>
+          <li><b>Barber pages</b>: one per barber with bio, work photos and their Book button (helps people find each barber by name on Google)</li>
+          <li><b>Services</b>: menu with prices</li>
+          <li><b>Location</b>: map, hours, parking, directions</li>
+          <li><b>FAQ</b>: walk-ins, payment, cancellations</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Booking</h2>
+        <p style="margin:0">Each barber's button goes straight to their own Booksy link, so no new booking system is needed. Booksy stays the calendar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Google / SEO plan</h2>
+    <div class="cols">
+      <ul class="tight check">
+        <li>Google Business Profile updated with the new address on moving day</li>
+        <li>Name, address and phone written exactly the same on the site, Google, Booksy, Yelp and Instagram</li>
+        <li>"BarberShop" business info built into the site so Google reads hours, location and prices</li>
+        <li>Page titles like "Blends Barbershop | Barber in Los Angeles"</li>
+      </ul>
+      <ul class="tight check">
+        <li>A page for each barber, so their names are searchable</li>
+        <li>Real photos with descriptions (no stock photos)</li>
+        <li>Fast load on phones; works without the Booksy app</li>
+        <li>Ask happy clients for Google reviews with a QR code on the TV and mirror</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-info" aria-labelledby="h-info">
+  <p class="eyebrow">Shop info</p>
+  <h1 id="h-info">Info for the website</h1>
+  <p class="lede">Fill in what you know and skip the rest. Tap <b>Save</b> anytime. It's stored here, so you can come back and update it.</p>
+
+  <div class="card gate" id="gate" hidden>
+    <h2>Enter the access code</h2>
+    <p class="note" style="margin-top:0">Brandon sent you a short code. It keeps the barbers' contact info private.</p>
+    <form id="gateForm" class="actions">
+      <label style="flex:1;min-width:180px">Access code<input id="codeInput" autocomplete="off" autocapitalize="off"></label>
+      <button class="primary" type="submit" style="align-self:flex-end">Open</button>
+    </form>
+    <p class="status" id="gateMsg" role="status"></p>
+  </div>
+
+  <form id="f" novalidate hidden>
+    <div class="card">
+      <h2>1. The shop</h2>
+      <p class="note" style="margin-top:0">Write the name and address exactly as you want them on Google.</p>
+      <div class="grid">
+        <label class="full">Shop name<input name="Shop name" value="Blends Barbershop" autocomplete="organization"></label>
+        <label>Your name (who's filling this out)<input name="Filled out by" autocomplete="name"></label>
+        <label>Best way to reach you<input name="Best contact for questions" placeholder="text / call / email"></label>
+        <label>Shop phone<input name="Shop phone" type="tel" autocomplete="tel"></label>
+        <label>Shop email<input name="Shop email" type="email" autocomplete="email"></label>
+        <label class="full">Current address<input name="Current address"></label>
+        <label class="full">New address / where the Airstream will be<input name="New address"></label>
+        <label>Moving date (if known)<input name="Moving date"></label>
+        <label>Neighborhoods / areas you serve<input name="Areas served" placeholder="Los Angeles, Silver Lake…"></label>
+        <label class="full">Hours<textarea name="Hours" placeholder="Mon–Fri 10–7&#10;Sat 9–5&#10;Sun closed"></textarea></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>2. Barbers</h2>
+      <p class="note" style="margin-top:0">One box per barber. The booking link is what their Book button opens.</p>
+      <div id="barbers"></div>
+      <button type="button" class="ghost" id="addBarber">+ Add another barber</button>
+    </div>
+
+    <div class="card">
+      <h2>3. Services &amp; prices</h2>
+      <p class="note" style="margin-top:0">Or skip this and the site will link to Booksy.</p>
+      <div id="services"></div>
+      <button type="button" class="ghost" id="addSvc">+ Add a service</button>
+    </div>
+
+    <div class="card">
+      <h2>4. About the shop</h2>
+      <div class="grid">
+        <label>Year the shop opened<input name="Year opened" inputmode="numeric"></label>
+        <label>Tagline / slogan<input name="Tagline"></label>
+        <label class="full">Your story: how it started, what makes you different<textarea name="About / story"></textarea></label>
+        <label class="full">The vibe in a few words<input name="Vibe" placeholder="classic, chill, family-friendly…"></label>
+        <label class="full">Websites or shops you like the look of<textarea name="Sites they like"></textarea></label>
+        <fieldset class="full"><legend>Airstream layout you like</legend>
+          <div class="opts" data-group="Layout pick">
+            <label><input type="radio" name="g-layout" value="A · Rear station">A · Rear station</label>
+            <label><input type="radio" name="g-layout" value="B · Center chair">B · Center chair</label>
+            <label><input type="radio" name="g-layout" value="Not sure yet">Not sure yet</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Finish direction</legend>
+          <div class="opts" data-group="Finish pick">
+            <label><input type="radio" name="g-finish" value="Aluminum modern">Aluminum modern</label>
+            <label><input type="radio" name="g-finish" value="Classic Americana">Classic Americana</label>
+            <label><input type="radio" name="g-finish" value="Warm minimal">Warm minimal</label>
+            <label><input type="radio" name="g-finish" value="Not sure yet">Not sure yet</label>
+          </div></fieldset>
+        <label class="full">Airstream measurements (if you have them)<input name="Airstream measurements" placeholder="length, inside width, model/year"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>5. Visiting the shop</h2>
+      <div class="grid">
+        <fieldset class="full"><legend>Walk-ins?</legend>
+          <div class="opts" data-group="Walk-ins">
+            <label><input type="radio" name="g-walk" value="Yes">Yes</label>
+            <label><input type="radio" name="g-walk" value="Appointment only">Appointment only</label>
+            <label><input type="radio" name="g-walk" value="If a chair is open">If a chair is open</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Payment accepted</legend>
+          <div class="opts" data-group="Payment">
+            <label><input type="checkbox" value="Cash">Cash</label>
+            <label><input type="checkbox" value="Card">Card</label>
+            <label><input type="checkbox" value="Apple Pay">Apple Pay</label>
+            <label><input type="checkbox" value="Zelle">Zelle</label>
+            <label><input type="checkbox" value="Venmo">Venmo</label>
+            <label><input type="checkbox" value="Cash App">Cash App</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Extras</legend>
+          <div class="opts" data-group="Extras">
+            <label><input type="checkbox" value="Kids cuts">Kids cuts</label>
+            <label><input type="checkbox" value="House calls / mobile">House calls / mobile</label>
+            <label><input type="checkbox" value="Wheelchair accessible">Wheelchair accessible</label>
+            <label><input type="checkbox" value="Wi-Fi">Wi-Fi</label>
+            <label><input type="checkbox" value="Drinks">Drinks</label>
+          </div></fieldset>
+        <label class="full">Parking info<input name="Parking"></label>
+        <label class="full">Cancellation / late policy<textarea name="Policies"></textarea></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>6. Online accounts</h2>
+      <div class="grid">
+        <label class="full">Shop Booksy link<input name="Shop Booksy" type="url" placeholder="https://booksy.com/..."></label>
+        <label>Instagram<input name="Instagram" placeholder="@handle"></label>
+        <label>TikTok<input name="TikTok" placeholder="@handle"></label>
+        <label>Facebook<input name="Facebook"></label>
+        <label>Yelp<input name="Yelp"></label>
+        <label class="full">Current website (if any)<input name="Current website"></label>
+        <fieldset class="full"><legend>Google Business Profile (your listing on Google Maps)</legend>
+          <div class="opts" data-group="Google Business Profile">
+            <label><input type="radio" name="g-gbp" value="Have one and can log in">Have one and can log in</label>
+            <label><input type="radio" name="g-gbp" value="Have one, can't log in">Have one, can't log in</label>
+            <label><input type="radio" name="g-gbp" value="Don't have one">Don't have one</label>
+            <label><input type="radio" name="g-gbp" value="Not sure">Not sure</label>
+          </div></fieldset>
+        <fieldset class="full"><legend>Web address (domain)</legend>
+          <div class="opts" data-group="Domain status">
+            <label><input type="radio" name="g-dom" value="Already own one">Already own one</label>
+            <label><input type="radio" name="g-dom" value="Need one">Need one</label>
+          </div></fieldset>
+        <label class="full">Domain you own or want<input name="Domain" placeholder="blendsbarbershop.com"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>7. Logo &amp; photos</h2>
+      <p class="note" style="margin-top:0">Text or email your logo and photos to Brandon. This form can't upload them.</p>
+      <fieldset><legend>Do you have a logo?</legend>
+        <div class="opts" data-group="Logo">
+          <label><input type="radio" name="g-logo" value="Yes, will send file">Yes, I'll send the file</label>
+          <label><input type="radio" name="g-logo" value="Only on Instagram">Only on Instagram</label>
+          <label><input type="radio" name="g-logo" value="Need one">Need one</label>
+        </div></fieldset>
+      <fieldset style="margin-top:12px"><legend>Photos you can send</legend>
+        <div class="opts" data-group="Photos available">
+          <label><input type="checkbox" value="Haircuts / work">Haircuts / work</label>
+          <label><input type="checkbox" value="Each barber">Each barber</label>
+          <label><input type="checkbox" value="Airstream inside">Airstream inside</label>
+          <label><input type="checkbox" value="Outside">Outside</label>
+        </div></fieldset>
+      <label style="margin-top:12px">Brand colors (if any)<input name="Brand colors"></label>
+    </div>
+
+    <div class="card">
+      <h2>8. Anything else</h2>
+      <label>Notes<textarea name="Notes"></textarea></label>
+    </div>
+
+    <div class="savebar">
+      <div class="actions">
+        <button type="submit" class="primary">Save</button>
+        <button type="button" class="ghost" id="showText">View as text</button>
+        <span class="status" id="saveMsg" role="status" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="card" id="textCard" hidden style="margin-top:16px">
+      <h2>Summary</h2>
+      <div class="actions" style="margin-bottom:12px"><button type="button" class="ghost" id="copy">Copy</button><span class="status" id="copied"></span></div>
+      <pre id="text"></pre>
+    </div>
+  </form>
+</section>
+
+</main>
+
+<script>
+(function(){
+  const views = ["home","airstream","website","info"];
+  function route(){
+    const h = (location.hash || "#home").slice(1);
+    const v = views.includes(h) ? h : "home";
+    views.forEach(n => document.getElementById("v-"+n).classList.toggle("active", n===v));
+    document.querySelectorAll("nav a").forEach(a => {
+      if (a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+    });
+    window.scrollTo(0,0);
+    if (v==="info") openForm();
+  }
+  window.addEventListener("hashchange", route);
+
+  const form = document.getElementById("f");
+  const barberList = document.getElementById("barbers");
+  const svcList = document.getElementById("services");
+  const bFields = [
+    ["Name","text",""],["Title","text","Owner, Barber…"],["Phone","tel",""],["Email","email",""],
+    ["Booking link","url","https://booksy.com/..."],["Instagram","text","@handle"],["Years cutting","text",""],
+    ["Specialties","text","fades, beards, kids, designs…"],["Short bio","textarea","A sentence or two"]
+  ];
+  const sFields = [["Service","Haircut"],["Price","$40"],["Time","45 min"]];
+
+  function renumber(){ [...barberList.children].forEach((el,i)=>{ el.querySelector("strong").textContent = "Barber " + (i+1); }); }
+
+  function addBarber(vals){
+    const box = document.createElement("div"); box.className = "item";
+    const head = document.createElement("div"); head.className = "item-head";
+    const t = document.createElement("strong");
+    const rm = document.createElement("button"); rm.type="button"; rm.className="link"; rm.textContent="Remove";
+    rm.addEventListener("click", ()=>{ if (barberList.children.length>1){ box.remove(); renumber(); dirty(); } });
+    head.append(t, rm);
+    const grid = document.createElement("div"); grid.className = "grid";
+    bFields.forEach(([label,type,ph])=>{
+      const l = document.createElement("label");
+      if (["Specialties","Short bio","Booking link"].includes(label)) l.className = "full";
+      l.append(label);
+      const i = document.createElement(type==="textarea"?"textarea":"input");
+      if (type!=="textarea") i.type = type;
+      i.dataset.key = label; if (ph) i.placeholder = ph;
+      if (vals && vals[label]) i.value = vals[label];
+      l.appendChild(i); grid.appendChild(l);
+    });
+    box.append(head, grid); barberList.appendChild(box); renumber();
+  }
+
+  function addSvc(vals){
+    const row = document.createElement("div"); row.className = "svc";
+    sFields.forEach(([k,ph])=>{
+      const l = document.createElement("label"); l.append(k);
+      const i = document.createElement("input"); i.dataset.key = k; i.placeholder = ph;
+      if (vals && vals[k]) i.value = vals[k];
+      l.appendChild(i); row.appendChild(l);
+    });
+    const rm = document.createElement("button"); rm.type="button"; rm.className="link"; rm.textContent="Remove";
+    rm.addEventListener("click", ()=>{ if (svcList.children.length>1){ row.remove(); dirty(); } });
+    row.appendChild(rm); svcList.appendChild(row);
+  }
+
+  document.getElementById("addBarber").addEventListener("click", ()=>{ addBarber(); dirty(); });
+  document.getElementById("addSvc").addEventListener("click", ()=>{ addSvc(); dirty(); });
+
+  function collect(){
+    const fields = {};
+    form.querySelectorAll("[name]").forEach(el => { if (!el.name.startsWith("g-")) fields[el.name] = el.value.trim(); });
+    const groups = {};
+    form.querySelectorAll("[data-group]").forEach(g => { groups[g.dataset.group] = [...g.querySelectorAll("input:checked")].map(i=>i.value); });
+    const rows = (list, keys) => [...list.children].map(r => Object.fromEntries(keys.map(k => [k, r.querySelector('[data-key="'+k+'"]').value.trim()])));
+    return { fields, groups, barbers: rows(barberList, bFields.map(f=>f[0])), services: rows(svcList, sFields.map(f=>f[0])) };
+  }
+
+  function fill(d){
+    d = d || {};
+    const f = d.fields || {};
+    form.querySelectorAll("[name]").forEach(el => { if (!el.name.startsWith("g-") && f[el.name] !== undefined) el.value = f[el.name]; });
+    const g = d.groups || {};
+    form.querySelectorAll("[data-group]").forEach(box => {
+      const sel = g[box.dataset.group] || [];
+      box.querySelectorAll("input").forEach(i => { i.checked = sel.includes(i.value); });
+    });
+    barberList.innerHTML = ""; svcList.innerHTML = "";
+    ((d.barbers && d.barbers.length) ? d.barbers : [null, null]).forEach(b => addBarber(b));
+    ((d.services && d.services.length) ? d.services : [null, null, null]).forEach(s => addSvc(s));
+  }
+
+  function asText(d){
+    const L = [], line = (k,v)=>{ if (v) L.push(k + ": " + v); };
+    const sec = (title, keys) => {
+      const start = L.length; L.push("", "== " + title + " ==");
+      const n = L.length;
+      keys.forEach(k => Array.isArray(k) ? line(k[0], (d.groups[k[0]]||[]).join(", ")) : line(k, d.fields[k]));
+      if (L.length === n) L.splice(start);
+    };
+    sec("SHOP", ["Shop name","Filled out by","Best contact for questions","Shop phone","Shop email","Current address","New address","Moving date","Areas served","Hours"]);
+    let c = 0;
+    d.barbers.forEach(b => { if (!Object.values(b).some(Boolean)) return; c++; L.push("", "== BARBER " + c + " =="); Object.entries(b).forEach(([k,v]) => line(k, v)); });
+    const svcs = d.services.filter(s => Object.values(s).some(Boolean));
+    if (svcs.length){ L.push("", "== SERVICES =="); svcs.forEach(s => L.push("- " + Object.values(s).filter(Boolean).join(" | "))); }
+    sec("ABOUT", ["Year opened","Tagline","About / story","Vibe","Sites they like",["Layout pick"],["Finish pick"],"Airstream measurements"]);
+    sec("VISITING", [["Walk-ins"],["Payment"],["Extras"],"Parking","Policies"]);
+    sec("ONLINE", ["Shop Booksy","Instagram","TikTok","Facebook","Yelp","Current website",["Google Business Profile"],["Domain status"],"Domain"]);
+    sec("LOGO & PHOTOS", [["Logo"],["Photos available"],"Brand colors"]);
+    sec("NOTES", ["Notes"]);
+    return L.join("\n").trim();
+  }
+
+  const msg = document.getElementById("saveMsg");
+  let code = "";
+  try { code = localStorage.getItem("portalCode") || ""; } catch(e){}
+  let loaded = false, unsaved = false;
+  function dirty(){ unsaved = true; msg.className = "status"; msg.textContent = "Unsaved changes"; }
+  form.addEventListener("input", dirty);
+  window.addEventListener("beforeunload", e => { if (unsaved){ e.preventDefault(); e.returnValue = ""; } });
+
+  async function api(method, body){
+    const r = await fetch("/api/info", { method, headers: { "Content-Type":"application/json", "X-Portal-Code": code }, body: body ? JSON.stringify(body) : undefined });
+    if (r.status === 401) { const err = new Error("code"); err.code = 401; throw err; }
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    return r.json();
+  }
+
+  const gate = document.getElementById("gate");
+  async function openForm(){
+    if (loaded) return;
+    try {
+      const d = await api("GET");
+      fill(d); loaded = true; gate.hidden = true; form.hidden = false;
+      if (d.updatedAt) { msg.className="status"; msg.textContent = "Last saved " + new Date(d.updatedAt).toLocaleString(); }
+    } catch(e){
+      if (e.code === 401){ gate.hidden = false; form.hidden = true; if (code) document.getElementById("gateMsg").textContent = "That code didn't work. Try again."; }
+      else { gate.hidden = true; form.hidden = false; fill({}); loaded = true; msg.className="status err"; msg.textContent = "Couldn't load saved info. Check your connection."; }
+    }
+  }
+
+  document.getElementById("gateForm").addEventListener("submit", e => {
+    e.preventDefault();
+    code = document.getElementById("codeInput").value.trim();
+    try { localStorage.setItem("portalCode", code); } catch(err){}
+    openForm();
+  });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    msg.className = "status"; msg.textContent = "Saving…";
+    try {
+      const r = await api("PUT", collect());
+      unsaved = false;
+      msg.textContent = "Saved " + new Date(r.updatedAt).toLocaleTimeString() + ". You can come back and edit anytime.";
+    } catch(err){
+      msg.className = "status err";
+      msg.textContent = err.code === 401 ? "Access code didn't work. Reload the page and enter it again." : "Didn't save. Check your connection and try again.";
+    }
+  });
+
+  document.getElementById("showText").addEventListener("click", () => {
+    document.getElementById("text").textContent = asText(collect());
+    const c = document.getElementById("textCard"); c.hidden = false; c.scrollIntoView({behavior:"smooth"});
+  });
+  document.getElementById("copy").addEventListener("click", async () => {
+    const s = document.getElementById("copied");
+    try { await navigator.clipboard.writeText(document.getElementById("text").textContent); s.textContent = "Copied."; }
+    catch(e){ s.textContent = "Press and hold the text to copy it."; }
+  });
+
+  route();
+})();
+</script>
+</body>
+</html>

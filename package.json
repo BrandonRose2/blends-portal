@@ -1,0 +1,9 @@
+{
+  "name": "blends-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blends Barbershop project portal: Airstream concepts, website plan, shop info form",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
